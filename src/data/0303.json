@@ -1,0 +1,34 @@
+[
+  {
+    "value": "001",
+    "name": "삼성카드 2 V3",
+    "fees": {
+      "domestic": 10000,
+      "international": 15000
+    }
+  },
+  {
+    "value": "002",
+    "name": "삼성카드 4 V4",
+    "fees": {
+      "domestic": 12000,
+      "international": 17000
+    }
+  },
+  {
+    "value": "003",
+    "name": "삼성카드 6 V4",
+    "fees": {
+      "domestic": 14000,
+      "international": 20000
+    }
+  },
+  {
+    "value": "004",
+    "name": "삼성카드 & MILEAGE PLATINUM (스카이패스)",
+    "fees": {
+      "domestic": 47000,
+      "international": 49000
+    }
+  }
+]
