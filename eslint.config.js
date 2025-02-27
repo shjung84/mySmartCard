@@ -57,7 +57,7 @@ export default [
       // 이 규칙을 끄거나 수정
       'vue/multi-word-component-names': 'off',
       // 경고로만 표시 (빌드 실패 방지)
-      'no-unused-vars': 'warn',
+      'no-unused-vars': 'off',
       // allow debugger during development only
       'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     },

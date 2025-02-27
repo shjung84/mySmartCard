@@ -1,28 +1,214 @@
 {
-  "posts": [
+  "Brand": [
     {
-      "id": 1,
-      "title": "1 번째 게시물",
-      "content": "두 번째 게시물 내용입니다.",
-      "date": "2021-01-01"
+      "id": "eb59",
+      "no": 1,
+      "code": "0301",
+      "label": "KB카드",
+      "cards": [
+        {
+          "id": "0302_001",
+          "code": "001",
+          "label": "12344",
+          "no": 1,
+          "minUsage": 1,
+          "category": "1",
+          "annualFee": [],
+          "condition": [],
+          "benefit": []
+        },
+        {
+          "id": "0301_002",
+          "code": "002",
+          "label": "ID TEST",
+          "no": 2,
+          "minUsage": 50,
+          "annualFee": [
+            {
+              "value": 10000,
+              "label": "국내 전용"
+            }
+          ],
+          "condition": [],
+          "benefit": [],
+          "category": "1"
+        }
+      ]
     },
     {
-      "id": 2,
-      "title": "두 번째 게시물",
-      "content": "두 번째 게시물 내용입니다.",
-      "date": "2021-01-01"
+      "id": "c964",
+      "no": 2,
+      "label": "현대카드",
+      "code": "0302",
+      "cards": [
+        {
+          "id": "0302_001",
+          "code": "001",
+          "label": "1234",
+          "no": 1,
+          "category": "1",
+          "minUsage": 1,
+          "annualFee": [],
+          "condition": [],
+          "benefit": []
+        },
+        {
+          "id": "0302_002",
+          "code": "002",
+          "label": "2",
+          "no": 2,
+          "category": {
+            "value": "1",
+            "label": "항공마일리지"
+          },
+          "minUsage": 1,
+          "annualFee": [],
+          "condition": [],
+          "benefit": []
+        }
+      ]
     },
     {
-      "id": 3,
-      "title": "3 번째 게시물",
-      "content": "두 번째 게시물 내용입니다.",
-      "date": "2021-01-01"
+      "id": "9b5f",
+      "label": "삼성카드",
+      "code": "0303",
+      "no": 3,
+      "cards": [
+        {
+          "id": "0303_001",
+          "code": "001",
+          "label": "taptap O",
+          "no": 1,
+          "category": {
+            "value": "1",
+            "label": "항공마일리지"
+          },
+          "minUsage": 30,
+          "annualFee": [
+            {
+              "value": 10000,
+              "label": "국내전용"
+            },
+            {
+              "value": 10000,
+              "label": "해외겸용"
+            }
+          ],
+          "condition": [],
+          "benefit": [
+            {
+              "value": 5000,
+              "label": "이동통신"
+            },
+            {
+              "value": 10000,
+              "label": "커피 업종"
+            },
+            {
+              "value": 5000,
+              "label": "쇼핑 업종"
+            }
+          ]
+        },
+        {
+          "id": "0303_002",
+          "code": "002",
+          "label": "삼성카드 1",
+          "no": 2,
+          "category": {
+            "value": "1",
+            "label": "항공마일리지"
+          },
+          "minUsage": 100,
+          "annualFee": [
+            {
+              "value": 20000,
+              "label": "국내 전용"
+            },
+            {
+              "value": 20000,
+              "label": "해외 겸용"
+            }
+          ],
+          "condition": [],
+          "benefit": [
+            {
+              "value": 10000,
+              "label": "1"
+            }
+          ]
+        }
+      ]
     },
     {
-      "id": 4,
-      "title": "4 번째 게시물",
-      "content": "두 번째 게시물 내용입니다.",
-      "date": "2021-01-01"
+      "id": "db79",
+      "label": "NH카드",
+      "code": "0304",
+      "no": 4,
+      "cards": []
+    },
+    {
+      "id": "935e",
+      "label": "BC카드",
+      "code": "0305",
+      "no": 5,
+      "cards": []
+    },
+    {
+      "id": "a50f",
+      "label": "신한카드",
+      "code": "0306",
+      "no": 6,
+      "cards": []
+    },
+    {
+      "id": "0adc",
+      "label": "씨티카드",
+      "code": "0307",
+      "no": 7,
+      "cards": []
+    },
+    {
+      "id": "939a",
+      "label": "우리카드",
+      "code": "0309",
+      "no": 8,
+      "cards": []
+    },
+    {
+      "id": "6d18",
+      "label": "롯데카드",
+      "code": "0311",
+      "no": 9,
+      "cards": []
+    },
+    {
+      "id": "daa6",
+      "label": "하나카드",
+      "code": "0313",
+      "no": 10,
+      "cards": []
+    },
+    {
+      "id": "d94d",
+      "label": "광주카드",
+      "code": "0315",
+      "no": 11,
+      "cards": []
+    },
+    {
+      "id": "95b7",
+      "label": "수협카드",
+      "code": "0320",
+      "no": 12,
+      "cards": []
+    },
+    {
+      "id": "e6e9",
+      "label": "제주카드",
+      "code": "0321",
+      "no": 13,
+      "cards": []
     }
   ]
 }

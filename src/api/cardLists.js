@@ -16,34 +16,34 @@ const data = [
             label: '해외 123',
           },
         ],
-        condition: {
-          con_01: {
-            label: '전월 실적',
+        condition: [
+          {
             value: 300000,
-          },
-          con_02: {
             label: '전월 실적',
+          },
+          {
             value: 7000000,
+            label: '전월 실적',
           },
-        },
-        benefit: {
-          ben_01: {
-            label: '혜택 1',
+        ],
+        benefit: [
+          {
             value: 10000,
+            label: '혜택 1',
           },
-          ben_02: {
-            label: '혜택 2',
+          {
             value: 5000,
+            label: '혜택 2',
           },
-          ben_03: {
-            label: '혜택 3',
+          {
             value: 3000,
+            label: '혜택 3',
           },
-          ben_04: {
-            label: '혜택 4',
+          {
             value: 2000,
+            label: '혜택 4',
           },
-        },
+        ],
       },
       {
         value: '002',
@@ -54,34 +54,34 @@ const data = [
             label: '국내',
           },
         ],
-        condition: {
-          con_01: {
-            label: '전월 실적',
+        condition: [
+          {
             value: 300000,
-          },
-          con_02: {
             label: '전월 실적',
+          },
+          {
             value: 7000000,
+            label: '전월 실적',
           },
-        },
-        benefit: {
-          ben_01: {
-            label: '혜택 1',
+        ],
+        benefit: [
+          {
             value: 10000,
+            label: '혜택 1',
           },
-          ben_02: {
-            label: '혜택 2',
+          {
             value: 5000,
+            label: '혜택 2',
           },
-          ben_03: {
-            label: '혜택 3',
+          {
             value: 3000,
+            label: '혜택 3',
           },
-          ben_04: {
-            label: '혜택 4',
+          {
             value: 2000,
+            label: '혜택 4',
           },
-        },
+        ],
       },
     ],
   },
@@ -102,34 +102,34 @@ const data = [
             label: '해외',
           },
         ],
-        condition: {
-          con_01: {
+        condition: [
+          {
             label: '전월 실적',
             value: 300000,
           },
-          con_02: {
+          {
             label: '전월 실적',
             value: 7000000,
           },
-        },
-        benefit: {
-          ben_01: {
-            label: '혜택 1',
+        ],
+        benefit: [
+          {
             value: 10000,
+            label: '혜택 1',
           },
-          ben_02: {
-            label: '혜택 2',
+          {
             value: 5000,
+            label: '혜택 2',
           },
-          ben_03: {
-            label: '혜택 3',
+          {
             value: 3000,
+            label: '혜택 3',
           },
-          ben_04: {
-            label: '혜택 4',
+          {
             value: 2000,
+            label: '혜택 4',
           },
-        },
+        ],
       },
       {
         value: '002',
@@ -140,26 +140,26 @@ const data = [
             label: '국내',
           },
         ],
-        condition: {
-          con_01: {
-            label: '전월 실적',
+        condition: [
+          {
             value: 300000,
-          },
-          con_02: {
             label: '전월 실적',
+          },
+          {
             value: 7000000,
+            label: '전월 실적',
           },
-        },
-        benefit: {
-          ben_01: {
-            label: '혜택 1',
+        ],
+        benefit: [
+          {
             value: 10000,
+            label: '혜택 1',
           },
-          ben_02: {
-            label: '혜택 2',
+          {
             value: 5000,
+            label: '혜택 2',
           },
-        },
+        ],
       },
     ],
   },

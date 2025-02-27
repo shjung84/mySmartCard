@@ -7,28 +7,55 @@ const routes = [
     children: [
       {
         path: '',
+        name: 'CheckPicking',
+        meta: {
+          title: 'Check Picking',
+        },
         component: () => import('pages/IndexPage.vue'),
       },
     ],
   },
   {
-    path: '/Board',
+    path: '/Brand',
     component: MainLayout,
     children: [
       {
         path: '',
-        name: 'BoardList',
-        component: () => import('pages/Board/List.vue'),
+        name: 'BrandList',
+        meta: {
+          title: 'Brand List',
+        },
+        component: () => import('pages/Brand/List.vue'),
       },
       {
         path: ':id',
-        name: 'BoardDetail',
-        component: () => import('pages/Board/Detail.vue'),
+        name: 'BrandRegist',
+        meta: {
+          title: 'Brand List',
+        },
+        component: () => import('pages/Brand/Regist.vue'),
+      },
+    ],
+  },
+  {
+    path: '/Sort',
+    component: MainLayout,
+    children: [
+      {
+        path: '',
+        name: 'SortBrandList',
+        meta: {
+          title: 'Sort Brand List',
+        },
+        component: () => import('pages/Sort/List.vue'),
       },
       {
-        path: 'Regist',
-        name: 'BoardRegist',
-        component: () => import('pages/Board/Regist.vue'),
+        path: ':id',
+        name: 'SortCardList',
+        meta: {
+          title: 'Sort Card List',
+        },
+        component: () => import('pages/Sort/CardList.vue'),
       },
     ],
   },

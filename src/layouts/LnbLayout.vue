@@ -9,27 +9,28 @@
     q-img(
       class="absolute-top"
       src="https://cdn.quasar.dev/img/material.png"
-      style="height: 150px"
+      style="height: 120px"
     )
-      div(class="absolute-bottom bg-transparent")
+      //- div(class="absolute-bottom bg-transparent")
         q-avatar(size="56px" class="q-mb-sm")
           img(src="https://cdn.quasar.dev/img/boy-avatar.png")
         div.text-weight-bold Razvan Stoenescu
         div @rstoenescu
     q-scroll-area(
-      style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd"
+      style="height: calc(100% - 120px); margin-top:120px; border-right: 1px solid #ddd"
     )
-      q-list(padding)
-          q-list(padding)
-            q-item(active v-ripple clickable)
-              router-link(to="/") Card
-            q-item(v-ripple clickable)
-              router-link(to="/Board") Board
-            //- q-item(v-ripple clickable)
-              q-item-section(avatar)
-                q-icon(name="star")
-              q-item-section
-                q-item-label d
+      q-list
+        q-item(
+          v-for="(menu, index) in menus"
+          :key="index"
+          :to="menu.path"
+          clickable
+          active-class="bg-primary text-white"
+        )
+          q-item-section(avatar)
+            q-icon(:name="menu.icon" size="sm")
+          q-item-section
+            q-item-label {{ menu.name }}
 
 </template>
 
@@ -48,7 +49,11 @@ export default {
   emits: ['update:modelValue'],
   data() {
     return {
-      //
+      menus: [
+        { name: 'Card', path: '/', icon: 'business' },
+        { name: 'Brand', path: '/Brand', icon: 'edit' },
+        { name: 'Sort', path: '/Sort', icon: 'list' },
+      ],
     }
   },
   methods: {
@@ -56,3 +61,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.q {
+  &-list {
+  }
+  &-item {
+  }
+}
+</style>

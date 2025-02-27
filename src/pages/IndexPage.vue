@@ -1,20 +1,19 @@
 <template lang="pug">
-q-page(style="padding-top: 50px")
-  q-page-sticky(position="top" expand class="bg-primary text-white")
-    q-toolbar
-      q-toolbar-title Picking
-
-
-  q-separator
+q-page
   div.q-pa-md(style="max-width: 500px")
-    q-form(:model="postForm" @submit="handleCalculate" @reset="handleReset" class="q-gutter-xs")
+    q-form(
+      :model="postForm"
+      @submit="handleCalculate"
+      @reset="handleReset"
+      class="q-gutter-xs"
+    )
       q-select(
-        v-model="postForm.company"
+        v-model="postForm.brand"
         label="카드사 선택"
-        stack-label
-        :options="cardCompanies"
+        :options="brands"
         option-value="code"
         option-label="label"
+        stack-label
         emit-value
         map-options
         @update:model-value="handleCards"
@@ -25,78 +24,85 @@ q-page(style="padding-top: 50px")
       //- 카드 선택
       q-select(
         v-model="postForm.card"
-        label="카드 선택"
-        stack-label
         :options="cards"
+        label="카드 선택"
         option-value="value"
         option-label="label"
+        stack-label
         emit-value
         map-options
-        @update:model-value="handleType"
+        @update:model-value="handleAnnualFee"
       )
         template(v-slot:prepend)
           q-icon(name="credit_card")
 
       //- 연회비(카드 종류 국내, 해외)
-      q-option-group(
-        v-if="postForm.card"
-        v-model="postForm.anualFee"
-        type="radio"
-        :options="cardTypes"
+      q-select(
+        v-model="postForm.annualFee"
+        :options="annualFees.length ? annualFees : [{ label: '선택하세요.', value: '' }]"
+        label="연회비 선택"
         option-value="value"
         option-label="label"
         stack-label
-        inline
+        emit-value
+        map-options
       )
-        template(v-slot:label="opt")
-          span {{ opt.label }} ({{ (opt.value).toLocaleString() }}원)
+        template(v-slot:prepend)
+          q-icon(name="event_repeat")
+
+      //- 전월실절, 최소 사용 금액
+      q-input(
+        v-model="postForm.minUsage"
+        label="전월실적, 최소 사용 금액"
+        suffix="원"
+        stack-label
+        input-class="text-right"
+        readonly
+      )
+        template(v-slot:prepend)
+          q-icon(name="data_usage")
 
       //- 월 혜택 금액 (캐시백, 포인트)
       q-input(
         v-model="postForm.monthlyBenefit"
         label="월 혜택 금액"
-        stack-label
         suffix="원"
+        stack-label
         readonly
         input-class="text-right"
       )
         template(v-slot:prepend)
-          q-icon(name="attach_money")
+          q-icon(name="loyalty")
         template(v-slot:append)
           q-btn(
-            class="glossy" round color="primary" icon="search"
+            icon="search"
+            color="primary"
+            size="sm"
+            round
+            glossy
             :disable="!stateBenefit"
             @click="handleBenefit"
           )
 
-      //- 전월실절, 최소 사용 금액
-      q-input(
-        v-model="postForm.minimumUsage"
-        label="전월실절, 최소 사용 금액"
-        stack-label
-        suffix="원"
-        input-class="text-right"
-        readonly
-      )
-        template(v-slot:prepend)
-          q-icon(name="attach_money")
 
       //- 월 사용 금액
       q-input(
         v-model="postForm.monthlyUsage"
         label="월 사용 금액"
-        stack-label
         suffix="원"
+        stack-label
         input-class="text-right"
-        @update:model-value="formatNumber"
+        @update:model-value="postForm.monthlyUsage = $func.formatCurrency($event)"
       )
         template(v-slot:prepend)
-          q-icon(name="attach_money")
+          q-icon(name="supervisor_account")
 
       .q-mt-lg.q-gutter-sm
+      .row.justify-between
+        q-btn(type="reset" label="초기화" color="info" :disable="stateReset")
         q-btn(type="submit" label="계산하기" color="primary" :disable="!stateCalculate")
-        q-btn(type="reset" label="초기화" color="primary")
 
+      q-separator.q-mt-md.q-mb-md
       //- 계산된 피킹률
       q-card(class="my-card text-white" style="background: radial-gradient(circle, #35a2ff 0%, #014a88 100%)")
         q-card-section(v-if="!pickingRate")
@@ -108,24 +114,23 @@ q-page(style="padding-top: 50px")
 pop-check-benefit(
   :visible="visibleBenefit"
   :data="benefitData"
-  @handleSubmit="handleMomthlyBenefit"
+  @handleSubmit="handleMonthlyBenefit"
   @close="visibleBenefit = false"
 )
 </template>
 
 <script>
-// import data from 'src/data/cardLists'
-import data from 'src/api/cardLists'
+import api from 'src/api/cards'
 
 import popCheckBenefit from './_popups/checkBenefit.vue'
 
 const defaultform = {
-  company: null,
+  brand: null,
   card: '',
-  anualFee: null,
+  annualFee: null,
   monthlyBenefit: '',
   monthlyUsage: '',
-  minimumUsage: '0',
+  minUsage: null,
 }
 
 export default {
@@ -135,32 +140,40 @@ export default {
   },
 
   watch: {
-    'postForm.company': {
-      handler(newVal) {
-        if (newVal) {
-          console.log(newVal)
-        } else {
-          this.handleReset()
+    'postForm.brand': {
+      handler(newVal, oldVal) {
+        if (oldVal && newVal !== oldVal) {
+          this.postForm.card = ''
         }
       },
       // immediate: true,
     },
-    stateBenefit(newVal) {
-      console.log('stateBenefit', newVal)
+    'postForm.card': {
+      handler(newVal, oldVal) {
+        if (newVal !== oldVal) {
+          this.postForm.annualFee = null
+        }
+      },
+      // immediate: true,
     },
   },
   computed: {
     stateBenefit() {
-      return this.postForm.company && this.postForm.card && this.postForm.anualFee
+      return this.postForm.brand && this.postForm.card && this.postForm.annualFee
     },
     stateCalculate() {
       return Object.values(this.postForm).every(item => item) && this.postForm.monthlyUsage !== '0'
     },
+    stateReset() {
+      return Object.values(this.postForm).every(item => !item)
+    },
+  },
+  created() {
+    this.fetchData()
   },
   data() {
     return {
       // --------------------
-      dense: false,
       pickingRate: 0,
       resultMessage: '',
 
@@ -172,33 +185,68 @@ export default {
       postForm: { ...defaultform },
 
       // 데이터
-      cardCompanies: data,
+      brands: [],
       cards: [],
-      cardData: {},
-      cardTypes: [],
+      annualFees: [],
     }
   },
-
   methods: {
-    handleCards(val) {
-      this.cards = data.find(item => item.code === val).cards
+    // new
+
+    async fetchData() {
+      try {
+        const { data } = await api.getBrands()
+        this.brands = data.sort((a, b) => a.seq - b.seq)
+        // this.brands = data
+      } catch (error) {
+        this.$q.notify({
+          color: 'negative',
+          message: '데이터를 불러오는 중 오류가 발생했습니다.',
+          position: 'top',
+        })
+      }
     },
-    handleType(val) {
-      this.cardTypes = this.cards.find(item => item.value === val).type
+    handleCards(val) {
+      this.cards = this.brands.find(item => item.code === val).cards
+    },
+    handleAnnualFee(val) {
+      const annualFees = this.cards.find(item => item.code === val.code).annualFee
+      this.annualFees = annualFees.map(item => ({
+        label: `${item.label} (${this.$func.formatCurrency(item.value)} 원)`,
+        value: item.value,
+      }))
+      this.postForm.minUsage = this.remakeCurrency(this.cards.find(item => item.code === val.code).minUsage * 1000)
     },
     handleBenefit() {
-      this.benefitData = this.cards.find(item => item.value === this.postForm.card).benefit
+      console.log('handleBenefit', this.cards[0])
+      console.log('handleBenefit', this.postForm.card)
+
+      // 1️⃣ 특정 카드 찾기
+      const card = this.cards.find(item => item.code === this.postForm.card.code)
+
+      console.log(card)
+
+      // 2️⃣ 카드가 존재하지 않으면 실행 중단
+      if (!card) {
+        console.warn(`⚠️ 해당 코드(${this.postForm.card})를 가진 카드를 찾을 수 없습니다.`)
+        this.benefitData = []
+        return
+      }
+
+      // 3️⃣ benefit 변환 적용
+      this.benefitData = card.benefit || [] // `undefined` 방지
+      console.log(this.benefitData)
+
+      // 4️⃣ 모달(또는 UI) 활성화
       this.visibleBenefit = true
     },
-    handleMomthlyBenefit(val) {
+    handleMonthlyBenefit(val) {
       this.postForm.monthlyBenefit = val
     },
-
     handleReset() {
-      console.log('reset')
       this.postForm = { ...defaultform }
       this.cards = []
-      this.types = []
+      this.annualFees = []
     },
     handleCalculate() {
       // (월 혜택금액 - (연회비 ÷ 12)) ÷ 월 사용 금액 ✕ 100
@@ -220,18 +268,9 @@ export default {
       }
     },
 
-    // 소수점
-    formatNumber(value) {
-      // 숫자만 남기기 (정수 및 소수점 허용)
-      let numericValue = value.replace(/[^0-9.]/g, '')
-      // 소수점이 여러 개 입력되지 않도록 제한
-      let parts = numericValue.split('.')
-      if (parts.length > 2) {
-        numericValue = parts[0] + '.' + parts.slice(1).join('')
-      }
-
-      let formattedValue = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-      this.postForm.monthlyUsage = formattedValue
+    remakeCurrency(value) {
+      if (!value) return '0'
+      return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
   },
 }

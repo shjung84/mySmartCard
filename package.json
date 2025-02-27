@@ -21,10 +21,12 @@
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "quasar": "^2.16.0",
+    "quasar-ui-q-draggable-table": "^1.0.3",
     "sass": "^1.83.4",
     "vite": "^6.0.11",
     "vue": "^3.4.18",
     "vue-router": "^4.0.0",
+    "vuedraggable": "^2.24.3",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
