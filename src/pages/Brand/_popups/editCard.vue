@@ -223,7 +223,7 @@ export default {
       await api.updateCards(this.parent.id, this.postForm.id, this.normalize())
       this.$q.notify({
         message: '수정되었습니다.',
-        position: 'center',
+        color: 'secondary',
       })
 
       this.$emit('close')

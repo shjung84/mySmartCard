@@ -90,18 +90,19 @@ export default {
 
   // 카드 정보 수정
   async updateCards(id, cardId, updatedFields) {
+    console.log(id, cardId, updatedFields)
     try {
       // 1️⃣ 특정 브랜드 가져오기 (id 기준)
       const res = await axios.get(`${BASE_URL}/${id}`)
-      if (!res.data.length) throw new Error('❌ 브랜드를 찾을 수 없습니다.')
+      if (!res.data) throw new Error('❌ 브랜드를 찾을 수 없습니다.')
 
-      let brand = res.data[0] // JSON Server는 배열로 반환하므로 첫 번째 항목 선택
+      let brand = res.data // JSON Server는 배열로 반환하므로 첫 번째 항목 선택
 
       // 2️⃣ `cards` 속성이 없을 경우 빈 배열로 초기화
       if (!Array.isArray(brand.cards)) brand.cards = []
 
       // 3️⃣ 기존 카드 찾기
-      const existingCard = brand.cards.find(c => c.code === cardId)
+      const existingCard = brand.cards.find(c => c.id === cardId)
 
       if (!existingCard) throw new Error(`❌ 카드(${cardId})를 찾을 수 없습니다.`)
 

@@ -195,9 +195,11 @@ export default {
     handleEditCard() {
       const parent = this.treeData.find(node => node.children.find(child => child.id === this.selectedNode.id))
       this.parent = {
+        id: parent.id,
         code: parent.code,
         label: parent.label,
       }
+      console.log(this.parent)
       this.visibleEditCard = true
     },
     handleDeleteCard() {
