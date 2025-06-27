@@ -160,28 +160,33 @@ export default {
   },
   methods: {
     async fetchData() {
-      const res = await api.getBrandByCode(this.$route.params.id)
-      if (res.data.length === 0) {
-        alert('해당 카드회사를 찾을 수 없습니다.')
-        return
-      }
-      this.brand = res.data
-      this.no = this.brand.cards.length + 1
-
-      if (!this.postForm.cards || this.postForm.cards.length === 0) {
-        this.handleAddCard()
+      try {
+        const res = await api.getBrandByCode(this.$route.params.id)
+        if (res.data.length === 0) {
+          alert('해당 카드회사를 찾을 수 없습니다.')
+          return
+        }
+        this.brand = res.data
+        if (!this.postForm.cards || this.postForm.cards.length === 0) {
+          this.handleAddCard()
+        }
+      } catch (error) {
+        console.error(error)
       }
     },
     handleAddCard() {
       const newCard = defaultCard()
-      newCard.no = this.no++
+      newCard.no = this.postForm.cards.length + 1
+
       this.postForm.cards.push(newCard)
     },
     handleRemoveCard(index) {
-      if (this.postForm.cards.length > 1) this.postForm.cards.splice(index, 1)
+      if (this.postForm.cards.length <= 1) return
+      this.postForm.cards.splice(index, 1)
+      this.postForm.cards.forEach((card, index) => (card.no = index + 1))
     },
-    handleAddItem(key) {
-      this.postForm.cards[0][key].push({ value: '', label: '' })
+    handleAddItem(cardIndex, key) {
+      this.postForm.cards[cardIndex][key].push({ value: '', label: '' })
     },
     handleRemoveItem(cardIndex, key, itemIndex) {
       this.postForm.cards[cardIndex][key].splice(itemIndex, 1)

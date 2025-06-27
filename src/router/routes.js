@@ -13,6 +13,14 @@ const routes = [
         },
         component: () => import('pages/IndexPage.vue'),
       },
+      {
+        path: '/Login',
+        name: 'Login',
+        meta: {
+          title: 'Login',
+        },
+        component: () => import('pages/Login/index.vue'),
+      },
     ],
   },
   {

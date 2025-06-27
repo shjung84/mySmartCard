@@ -107,36 +107,39 @@
             {
               "value": 5000,
               "label": "쇼핑 업종"
+            },
+            {
+              "value": 5000,
+              "label": "대중교통"
+            },
+            {
+              "value": 5000,
+              "label": "영화"
             }
           ]
         },
         {
           "id": "0303_002",
           "code": "002",
-          "label": "삼성카드 1",
+          "label": "삼성카드 & MILEAGE PLATINUM (스카이패스)",
           "no": 2,
           "category": {
             "value": "1",
             "label": "항공마일리지"
           },
-          "minUsage": 100,
+          "minUsage": "0",
           "annualFee": [
             {
-              "value": 20000,
+              "value": 47000,
               "label": "국내 전용"
             },
             {
-              "value": 20000,
+              "value": 49000,
               "label": "해외 겸용"
             }
           ],
           "condition": [],
-          "benefit": [
-            {
-              "value": 10000,
-              "label": "1"
-            }
-          ]
+          "benefit": []
         }
       ]
     },
@@ -159,7 +162,24 @@
       "label": "신한카드",
       "code": "0306",
       "no": 6,
-      "cards": []
+      "cards": [
+        {
+          "id": "0306_001",
+          "code": "001",
+          "label": "신한카드 The BEST-F",
+          "no": 1,
+          "minUsage": 30,
+          "annualFee": [
+            {
+              "value": 202000,
+              "label": "해외 겸용"
+            }
+          ],
+          "condition": [],
+          "benefit": [],
+          "category": "1"
+        }
+      ]
     },
     {
       "id": "0adc",
@@ -173,7 +193,44 @@
       "label": "우리카드",
       "code": "0309",
       "no": 8,
-      "cards": []
+      "cards": [
+        {
+          "id": "0309_001",
+          "code": "001",
+          "label": "카드의정석 EVERY MILE SKYPASS",
+          "no": 1,
+          "minUsage": "0",
+          "annualFee": [
+            {
+              "value": 39000,
+              "label": "국내 전용"
+            },
+            {
+              "value": 39000,
+              "label": "해외 겸용"
+            }
+          ],
+          "condition": [],
+          "benefit": [],
+          "category": "1"
+        },
+        {
+          "id": "0309_002",
+          "code": "002",
+          "label": "2",
+          "no": 2,
+          "minUsage": 1,
+          "annualFee": [
+            {
+              "value": 1,
+              "label": "국내 전용"
+            }
+          ],
+          "condition": [],
+          "benefit": [],
+          "category": "1"
+        }
+      ]
     },
     {
       "id": "6d18",
@@ -187,7 +244,24 @@
       "label": "하나카드",
       "code": "0313",
       "no": 10,
-      "cards": []
+      "cards": [
+        {
+          "id": "0313_001",
+          "code": "001",
+          "label": "하나 스카이패스 아멕스 플래티늄 카드",
+          "no": 1,
+          "minUsage": 50,
+          "annualFee": [
+            {
+              "value": 45000,
+              "label": "해외 겸용"
+            }
+          ],
+          "condition": [],
+          "benefit": [],
+          "category": "1"
+        }
+      ]
     },
     {
       "id": "d94d",
